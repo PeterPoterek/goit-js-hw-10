@@ -20,6 +20,5 @@ const fetchBreeds = () => {
     })
     .catch(err => console.log(err));
 };
-fetchBreeds();
 
 export { fetchBreeds };
