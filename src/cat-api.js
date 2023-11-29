@@ -5,12 +5,25 @@ axios.defaults.headers.common['x-api-key'] =
 
 const breedSelect = document.querySelector('.breed-select');
 const catInfo = document.querySelector('.cat-info');
+const loader = document.querySelector('.loader');
+const error = document.querySelector('.error');
+
+breedSelect.style.display = 'none';
+error.style.display = 'none';
+
+const showErrorMessage = e => {
+  console.log(e);
+  breedSelect.style.display = 'none';
+  loader.style.display = 'none';
+  error.style.display = 'block';
+};
 
 const fetchCatByBreed = breedId => {
   axios
     .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(res => {
       console.log(res.data[0].url);
+
       let catTitle, catDescription, catTemperament, catImage;
 
       if (catInfo.children.length === 0) {
@@ -39,7 +52,9 @@ const fetchCatByBreed = breedId => {
       catTemperament.innerHTML = `<span>Temperament:</span> ${res.data[0].breeds[0].temperament}`;
       catImage.setAttribute('src', res.data[0].url);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      showErrorMessage(err);
+    });
 };
 
 const fetchBreeds = () => {
@@ -48,6 +63,9 @@ const fetchBreeds = () => {
     .then(res => {
       const breedData = res.data;
 
+      breedSelect.style.display = 'block';
+      loader.style.display = 'none';
+
       breedData.forEach(breed => {
         const option = document.createElement('option');
         option.value = breed.id;
@@ -55,7 +73,9 @@ const fetchBreeds = () => {
         breedSelect.appendChild(option);
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      showErrorMessage(err);
+    });
 };
 
 export { fetchBreeds, fetchCatByBreed };
