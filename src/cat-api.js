@@ -18,11 +18,18 @@ const showErrorMessage = e => {
   error.style.display = 'block';
 };
 
+const showLoader = () => {
+  breedSelect.style.display = 'block';
+  loader.style.display = 'none';
+};
+
 const fetchCatByBreed = breedId => {
   axios
     .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(res => {
       console.log(res.data[0].url);
+
+      showLoader();
 
       let catTitle, catDescription, catTemperament, catImage;
 
@@ -63,8 +70,7 @@ const fetchBreeds = () => {
     .then(res => {
       const breedData = res.data;
 
-      breedSelect.style.display = 'block';
-      loader.style.display = 'none';
+      showLoader();
 
       breedData.forEach(breed => {
         const option = document.createElement('option');
