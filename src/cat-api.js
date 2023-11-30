@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 axios.defaults.headers.common['x-api-key'] =
   'live_TaIGK3rsMEKklkFcwlsXQnzMHzIcWi9oBOFV02xixfWvhpAsIvH0VzMASm6lgRn4';
@@ -11,10 +12,12 @@ const error = document.querySelector('.error');
 breedSelect.style.display = 'none';
 error.style.display = 'none';
 
-const showErrorMessage = e => {
+const showErrorMessage = () => {
   breedSelect.style.display = 'none';
   loader.style.display = 'none';
+  catInfo.style.display = 'none';
   error.style.display = 'block';
+  Notiflix.Notify.failure(err);
 };
 
 const showLoader = () => {
@@ -56,8 +59,8 @@ const fetchCatByBreed = breedId => {
       catTemperament.innerHTML = `<span>Temperament:</span> ${res.data[0].breeds[0].temperament}`;
       catImage.setAttribute('src', res.data[0].url);
     })
-    .catch(err => {
-      showErrorMessage(err);
+    .catch(() => {
+      showErrorMessage();
     });
 };
 
@@ -76,8 +79,8 @@ const fetchBreeds = () => {
         breedSelect.appendChild(option);
       });
     })
-    .catch(err => {
-      showErrorMessage(err);
+    .catch(() => {
+      showErrorMessage();
     });
 };
 
