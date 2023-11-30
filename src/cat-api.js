@@ -20,16 +20,22 @@ const showErrorMessage = () => {
   Notiflix.Notify.failure(err);
 };
 
-const showLoader = () => {
+const hideLoader = () => {
   breedSelect.style.display = 'block';
   loader.style.display = 'none';
 };
+const showLoader = () => {
+  catInfo.style.display = 'none';
+  loader.style.display = 'flex';
+};
 
 const fetchCatByBreed = breedId => {
+  showLoader();
   axios
     .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(res => {
-      showLoader();
+      catInfo.style.display = 'flex';
+      loader.style.display = 'none';
 
       let catTitle, catDescription, catTemperament, catImage;
 
@@ -70,7 +76,7 @@ const fetchBreeds = () => {
     .then(res => {
       const breedData = res.data;
 
-      showLoader();
+      hideLoader();
 
       breedData.forEach(breed => {
         const option = document.createElement('option');
