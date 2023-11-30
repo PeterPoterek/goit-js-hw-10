@@ -17,7 +17,7 @@ const showErrorMessage = () => {
   loader.style.display = 'none';
   catInfo.style.display = 'none';
   error.style.display = 'block';
-  Notiflix.Notify.failure(err);
+  Notiflix.Notify.failure('Error');
 };
 
 const hideLoader = () => {
