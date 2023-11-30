@@ -12,7 +12,6 @@ breedSelect.style.display = 'none';
 error.style.display = 'none';
 
 const showErrorMessage = e => {
-  console.log(e);
   breedSelect.style.display = 'none';
   loader.style.display = 'none';
   error.style.display = 'block';
@@ -27,8 +26,6 @@ const fetchCatByBreed = breedId => {
   axios
     .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(res => {
-      console.log(res.data[0].url);
-
       showLoader();
 
       let catTitle, catDescription, catTemperament, catImage;
