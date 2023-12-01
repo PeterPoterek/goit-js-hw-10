@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select';
 
 axios.defaults.headers.common['x-api-key'] =
   'live_TaIGK3rsMEKklkFcwlsXQnzMHzIcWi9oBOFV02xixfWvhpAsIvH0VzMASm6lgRn4';
@@ -9,19 +10,26 @@ const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 
+const slimSelect = new SlimSelect({
+  select: breedSelect,
+});
+
+console.dir(slimSelect);
+
 breedSelect.style.display = 'none';
 error.style.display = 'none';
 
-const showErrorMessage = () => {
+const showErrorMessage = err => {
   breedSelect.style.display = 'none';
   loader.style.display = 'none';
   catInfo.style.display = 'none';
   error.style.display = 'block';
+
+  console.log(err);
   Notiflix.Notify.failure('Error');
 };
 
 const hideLoader = () => {
-  breedSelect.style.display = 'block';
   loader.style.display = 'none';
 };
 const showLoader = () => {
@@ -65,8 +73,8 @@ const fetchCatByBreed = breedId => {
       catTemperament.innerHTML = `<span>Temperament:</span> ${res.data[0].breeds[0].temperament}`;
       catImage.setAttribute('src', res.data[0].url);
     })
-    .catch(() => {
-      showErrorMessage();
+    .catch(err => {
+      showErrorMessage(err);
     });
 };
 
@@ -77,16 +85,18 @@ const fetchBreeds = () => {
       const breedData = res.data;
 
       hideLoader();
+      const optionsData = [];
 
       breedData.forEach(breed => {
-        const option = document.createElement('option');
-        option.value = breed.id;
-        option.text = breed.name;
-        breedSelect.appendChild(option);
+        const option = { text: breed.name, value: breed.id };
+        breedSelect.appendChild(document.createElement('option'));
+        optionsData.push(option);
       });
+
+      slimSelect.setData(optionsData);
     })
-    .catch(() => {
-      showErrorMessage();
+    .catch(err => {
+      showErrorMessage(err);
     });
 };
 
