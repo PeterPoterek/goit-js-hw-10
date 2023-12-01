@@ -14,8 +14,6 @@ const slimSelect = new SlimSelect({
   select: breedSelect,
 });
 
-console.dir(slimSelect);
-
 breedSelect.style.display = 'none';
 error.style.display = 'none';
 
