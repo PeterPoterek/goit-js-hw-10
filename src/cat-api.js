@@ -13,6 +13,8 @@ const error = document.querySelector('.error');
 const slimSelect = new SlimSelect({
   select: breedSelect,
 });
+const ssMain = document.querySelector('.ss-main');
+console.log(ssMain);
 
 breedSelect.style.display = 'none';
 error.style.display = 'none';
