@@ -44,6 +44,7 @@ const showLoader = () => {
 
 const fetchCatByBreed = breedId => {
   showLoader();
+
   axios
     .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(res => {
