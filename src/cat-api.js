@@ -18,6 +18,7 @@ console.log(ssMain);
 
 breedSelect.style.display = 'none';
 error.style.display = 'none';
+ssMain.style.display = 'none';
 
 const showErrorMessage = err => {
   breedSelect.style.display = 'none';
@@ -30,9 +31,12 @@ const showErrorMessage = err => {
 };
 
 const hideLoader = () => {
+  ssMain.style.display = 'inline-flex';
+
   loader.style.display = 'none';
 };
 const showLoader = () => {
+  ssMain.style.display = 'none';
   catInfo.style.display = 'none';
   loader.style.display = 'flex';
 };
@@ -42,6 +46,7 @@ const fetchCatByBreed = breedId => {
   axios
     .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
     .then(res => {
+      ssMain.style.display = 'inline-flex';
       catInfo.style.display = 'flex';
       loader.style.display = 'none';
 
