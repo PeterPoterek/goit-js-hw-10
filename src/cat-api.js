@@ -14,7 +14,7 @@ const slimSelect = new SlimSelect({
   select: breedSelect,
 });
 const ssMain = document.querySelector('.ss-main');
-console.log(ssMain);
+ssMain.classList.add('class', 'fade-in');
 
 breedSelect.style.display = 'none';
 error.style.display = 'none';
@@ -38,6 +38,7 @@ const hideLoader = () => {
 const showLoader = () => {
   ssMain.style.display = 'none';
   catInfo.style.display = 'none';
+  error.style.display = ' none';
   loader.style.display = 'flex';
 };
 
@@ -49,6 +50,7 @@ const fetchCatByBreed = breedId => {
       ssMain.style.display = 'inline-flex';
       catInfo.style.display = 'flex';
       loader.style.display = 'none';
+      error.style.display = 'none';
 
       let catTitle, catDescription, catTemperament, catImage;
 
@@ -87,6 +89,8 @@ const fetchBreeds = () => {
   axios
     .get('https://api.thecatapi.com/v1/breeds')
     .then(res => {
+      error.style.display = 'none';
+
       const breedData = res.data;
 
       hideLoader();
